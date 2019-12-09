@@ -23,10 +23,16 @@
 #include <MFRC522.h>
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
-#include <WiFi.h>
+#include <FirebaseArduino.h>
+#include <ESP8266WiFi.h>
 
 #define ssid "USER_SSID"
 #define password "PASSWORD"
+
+#define FIREBASE_HOST "YOUR FIREBASE HOST"
+#define FIREBASE_AUTH "YOUR FIREBASE KEY"
+
+#define roomId "1101"
 
 #define ledStripN 10
 #define ledStripPin 10
@@ -49,6 +55,7 @@ void setup() {
   mfrc522.PCD_Init();                                              // Init MFRC522 card
   Serial.println(F("Read personal data on a MIFARE PICC:"));    //shows in serial that it is ready to read
   locker.attach(lockerPin);
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   connectWiFi();
 }
 
@@ -151,6 +158,13 @@ void loop() {
 
   mfrc522.PICC_HaltA();
   mfrc522.PCD_StopCrypto1();
+
+  if(isDoor() == True){
+    doorOpen();
+  }
+  else if(isDoor() == False){
+    doorClose();
+  }
 }
 //*****************************************************************************************//
 
@@ -179,4 +193,9 @@ void connectWiFi(){
     Serial.print(".");
     ledColorAll(0,0,255,50);
   }
+}
+
+boolean isDoor(){
+  bool Status = Firebase.getBool(roomId);
+  return Status
 }
