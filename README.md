@@ -2,7 +2,7 @@
 (창의IT공모전)디미고 실 사용 예약 서비스 CAKE 하드웨어
 
 ---
-eke
+
 ## NFC 포트 연결
 
 |<center>RFID Sensor</center>|<center>Arduino</center>| 
