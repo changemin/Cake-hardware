@@ -1,4 +1,3 @@
-
 #include "ESP8266WiFi.h"
 
 const char* ssid = "변경민의 iPhone X"; //Enter SSID
