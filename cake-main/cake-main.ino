@@ -25,6 +25,8 @@
 #include <Adafruit_NeoPixel.h>
 #include <FirebaseArduino.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
 
 #define ssid "USER_SSID"
 #define password "PASSWORD"
@@ -47,6 +49,10 @@ Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(ledStripN, ledStripPin, NEO_GRB+N
 
 Servo locker;
 
+char server[] "www.test.com";
+
+WiFiClient client
+
 //*****************************************************************************************//
 void setup() {
   Serial.begin(115200);                                           // Initialize serial communications with the PC
@@ -64,6 +70,7 @@ void loop() {
   if(mfrc522.PICC_IsNewCardPresent()){
     String UID = getUID();
     Serial.println(UID);
+    httpRequest(UID);
   }
   if(isDoor() == True){
     doorOpen();
@@ -111,7 +118,7 @@ String getUID(){
     return "";
   }
   String UID = "";
-  for(int i = 0 ; i < mfrc522.uid.size; i ++){
+  for(int i = 0 ; i < 5; i ++){
     String tmp = String(mfrc522.uid.uidByte[i], HEX);
     UID += tmp;
   }
@@ -120,4 +127,17 @@ String getUID(){
   mfrc522.PCD_StopCrypto1();
 
   return UID;
+}
+
+void httpRequest(String UID){
+  Serial.println();
+  client.stop();
+  if(client.connet(server,80)){
+    Serial.println("[HTTP Request]Connecting to server...");
+
+    client.print(F("POST somthing"));
+  }
+  else {
+    Serial.println("[HTTP Request]Connection failed");
+  }
 }
