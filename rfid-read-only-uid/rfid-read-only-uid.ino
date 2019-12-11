@@ -49,6 +49,7 @@ String getUID(){
   //Serial.println(UID);
   mfrc522.PICC_HaltA(); // Stop reading
   mfrc522.PCD_StopCrypto1();
+  UID.toUpperCase();
 
   return UID;
 }
@@ -58,5 +59,6 @@ void loop() {
   if(mfrc522.PICC_IsNewCardPresent()) {
     String UID = getUID();
     Serial.println(UID);
+    
   }
 }
