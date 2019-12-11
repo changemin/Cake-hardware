@@ -5,13 +5,13 @@
 
 ## NFC 포트 연결
 
-|<center>RFID Sensor</center>|<center>Arduino</center>| 
+|<center>RFID Sensor</center>|<center>Arduino(Wemos D1 R1 기준)</center>| 
 |:--------:|:--------:|
-|**SDA** | <center>Digital 10</center> |
-|**SCK** | <center>DIgital 13</center> |
-|**MOSI** | <center>Digital 11</center> |
-|**MISO** | <center>Digital 12</center> |
+|**SDA** | <center>Digital 4</center> |
+|**SCK** | <center>DIgital 5</center> |
+|**MOSI** | <center>Digital 7</center> |
+|**MISO** | <center>Digital 6</center> |
 |**IRQ** | <center>enconnected</center> |
 |**GND** | <center>GND</center> |
-|**RST** | <center>Digital 9</center> |
+|**RST** | <center>Digital 3</center> |
 |**3.3V** | <center>3.3V</center> |

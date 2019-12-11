@@ -35,12 +35,14 @@ void setup() {
   Serial.println(F("Read personal data on a MIFARE PICC:"));    //shows in serial that it is ready to read
 }
 
-String getID(){
+String getUID(){
   if ( ! mfrc522.PICC_ReadCardSerial()) { //Since a PICC placed get Serial and continue
     return "";
   }
+
   String UID = "";
-  for(int i = 0 ; i < mfrc522.uid.size; i ++){
+  
+  for(int i = 0 ; i < 5; i ++){
     String tmp = String(mfrc522.uid.uidByte[i], HEX);
     UID += tmp;
   }
@@ -54,7 +56,7 @@ String getID(){
 void loop() {
   // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
   if(mfrc522.PICC_IsNewCardPresent()) {
-    String UID = getID();
+    String UID = getUID();
     Serial.println(UID);
   }
 }
