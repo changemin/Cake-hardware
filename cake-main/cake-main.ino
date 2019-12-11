@@ -31,17 +31,17 @@
 #define ssid "USER_SSID"
 #define password "PASSWORD"
 
-#define FIREBASE_HOST "YOUR FIREBASE HOST"
-#define FIREBASE_AUTH "YOUR FIREBASE KEY"
+#define FIREBASE_HOST "-=-=-=-=-=-=-=-=-=-="
+#define FIREBASE_AUTH "-=-=-=-=-=-=-=-=-="
 
-#define roomId "1101"
+#define roomId "0101"
 
 #define ledStripN 10
 #define ledStripPin 10
 #define lockerPin 11
 
-#define RST_PIN         9           // Configurable, see typical pin layout above
-#define SS_PIN          10          // Configurable, see typical pin layout above
+#define RST_PIN         3          // Configurable, see typical pin layout above
+#define SS_PIN          4          // Configurable, see typical pin layout above
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 
@@ -62,6 +62,7 @@ void setup() {
   Serial.println(F("Read personal data on a MIFARE PICC:"));    //shows in serial that it is ready to read
   locker.attach(lockerPin);
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.stream("");
   connectWiFi();
 }
 
@@ -72,10 +73,10 @@ void loop() {
     Serial.println(UID);
     httpRequest(UID);
   }
-  if(isDoor() == True){
+  if(isDoor() == 1){
     doorOpen();
   }
-  else if(isDoor() == False){
+  else if(isDoor() == 0){
     doorClose();
   }
 }
@@ -109,8 +110,7 @@ void connectWiFi(){
 }
 
 boolean isDoor(){
-  bool Status = Firebase.getBool(roomId);
-  return Status
+  return Firebase.getBool("/rooms/0101");
 }
 
 String getUID(){
